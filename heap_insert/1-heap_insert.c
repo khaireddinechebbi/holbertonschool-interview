@@ -43,23 +43,23 @@ return (node);
  */
 heap_t *find_insert_parent(heap_t *root, size_t size)
 {
-    size_t path_bit;
-    size_t max_bit = (size_t)1 << (sizeof(size_t) * 8 - 2); /* Safe max bit */
+size_t path_bit;
+size_t max_bit = (size_t)1 << (sizeof(size_t) * 8 - 2); /* Safe max bit */
 
-    /* Locate the most significant bit for the path */
-    for (path_bit = max_bit; !(path_bit & size); path_bit >>= 1)
-        ;
+/* Locate the most significant bit for the path */
+for (path_bit = max_bit; !(path_bit & size); path_bit >>= 1)
+;
 
-    /* Navigate down the tree to find the insertion parent */
-    for (path_bit >>= 1; path_bit > 1; path_bit >>= 1)
-    {
-        if (size & path_bit)
-            root = root->right;
-        else
-            root = root->left;
-    }
+/* Navigate down the tree to find the insertion parent */
+for (path_bit >>= 1; path_bit > 1; path_bit >>= 1)
+{
+if (size & path_bit)
+root = root->right;
+else
+root = root->left;
+}
 
-    return (root);
+return (root);
 }
 
 
