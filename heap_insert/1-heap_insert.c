@@ -10,7 +10,7 @@
 size_t binary_tree_size(const binary_tree_t *tree)
 {
 if (!tree)
-    return (0);
+return (0);
 return (1 + binary_tree_size(tree->left) + binary_tree_size(tree->right));
 }
 
@@ -26,21 +26,21 @@ int temp;
 
 while (node->parent && node->n > node->parent->n)
 {
-    temp = node->n;
-    node->n = node->parent->n;
-    node->parent->n = temp;
-    node = node->parent;
+temp = node->n;
+node->n = node->parent->n;
+node->parent->n = temp;
+node = node->parent;
 }
 return (node);
 }
 
 /**
- * find_insert_parent - Finds the parent for the next insertion
- * @root: Pointer to the root node of the Heap
- * @size: The current size of the Heap
- *
- * Return: Pointer to the parent node
- */
+* find_insert_parent - Finds the parent for the next insertion
+* @root: Pointer to the root node of the Heap
+* @size: The current size of the Heap
+*
+* Return: Pointer to the parent node
+*/
 heap_t *find_insert_parent(heap_t *root, size_t size)
 {
 size_t path_bit;
@@ -76,22 +76,22 @@ heap_t *new_node, *parent;
 size_t size;
 
 if (!root)
-    return (NULL);
+return (NULL);
 
 if (!*root)
-    return (*root = binary_tree_node(NULL, value));
+return (*root = binary_tree_node(NULL, value));
 
 size = binary_tree_size(*root) + 1;
 parent = find_insert_parent(*root, size);
 
 new_node = binary_tree_node(parent, value);
 if (!new_node)
-    return (NULL);
+return (NULL);
 
 if (!parent->left)
-    parent->left = new_node;
+parent->left = new_node;
 else
-    parent->right = new_node;
+parent->right = new_node;
 
 return (heapify_up(new_node));
 }
