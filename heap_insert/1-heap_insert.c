@@ -35,30 +35,33 @@ return (node);
 }
 
 /**
-* find_insert_parent - Finds the parent for the next insertion
-* @root: Pointer to the root node of the Heap
-* @size: The current size of the Heap
-*
-* Return: Pointer to the parent node
-*/
+ * find_insert_parent - Finds the parent for the next insertion
+ * @root: Pointer to the root node of the Heap
+ * @size: The current size of the Heap
+ *
+ * Return: Pointer to the parent node
+ */
 heap_t *find_insert_parent(heap_t *root, size_t size)
 {
-heap_t *parent;
-size_t path_bit;
+    size_t path_bit;
+    size_t max_bit = (size_t)1 << (sizeof(size_t) * 8 - 2); /* Safe max bit */
 
-for (path_bit = 1 << (sizeof(size) * 8 - 1); !(path_bit & size); path_bit >>= 1)
-    ;
+    /* Locate the most significant bit for the path */
+    for (path_bit = max_bit; !(path_bit & size); path_bit >>= 1)
+        ;
 
-for (path_bit >>= 1; path_bit > 1; path_bit >>= 1)
-{
-    if (size & path_bit)
-        root = root->right;
-    else
-        root = root->left;
+    /* Navigate down the tree to find the insertion parent */
+    for (path_bit >>= 1; path_bit > 1; path_bit >>= 1)
+    {
+        if (size & path_bit)
+            root = root->right;
+        else
+            root = root->left;
+    }
+
+    return (root);
 }
 
-return (root);
-}
 
 /**
 * heap_insert - Inserts a value into a Max Binary Heap
