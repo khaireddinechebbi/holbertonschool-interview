@@ -5,6 +5,7 @@ operations to achieve `n` H characters
 in a file using only Copy All and Paste operations.
 """
 
+
 def minOperations(n):
     """
     Calculate the minimum number of operations to achieve `n` H characters.
