@@ -3,13 +3,14 @@
 Module for UTF-8 validation.
 """
 
+
 def validUTF8(data):
     """Determines if a given dataset represents a valid UTF-8 encoding."""
     num_bytes = 0
-    
+
     for num in data:
         byte = num & 0xFF
-        
+
         if num_bytes == 0:
             if (byte >> 5) == 0b110:
                 num_bytes = 1
@@ -23,5 +24,5 @@ def validUTF8(data):
             if (byte >> 6) != 0b10:
                 return False
             num_bytes -= 1
-    
+
     return num_bytes == 0
