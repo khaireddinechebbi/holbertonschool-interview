@@ -1,68 +1,80 @@
 #include "slide_line.h"
-#include <stddef.h>
+#include <stdio.h>
 
 /**
-* slide_line - Slides and merges an array of integers in the 2048 game style.
-* @line: Pointer to an array of integers.
-* @size: Size of the array.
-* @direction: Direction to slide (SLIDE_LEFT or SLIDE_RIGHT).
-*
-* Return: 1 upon success, 0 upon failure.
-*/
+ * slide_line - Slides and merges an array of integers like 2048 game.
+ * @line: Pointer to an array of integers.
+ * @size: Number of elements in the array.
+ * @direction: Direction to slide (SLIDE_LEFT or SLIDE_RIGHT).
+ * Return: 1 on success, 0 on failure.
+ */
 int slide_line(int *line, size_t size, int direction)
 {
-size_t i, j, last_merged;
+    size_t i, pos;
 
-if (!line || (direction != SLIDE_LEFT && direction != SLIDE_RIGHT))
-return (0);
+    if (!line || (direction != SLIDE_LEFT && direction != SLIDE_RIGHT))
+        return (0);
 
-if (direction == SLIDE_LEFT)
-{
-last_merged = 0;
-for (i = 0, j = 0; i < size; i++)
-{
-if (line[i] != 0)
-{
-if (j > 0 && line[j - 1] == line[i] && last_merged != j - 1)
-{
-line[j - 1] *= 2;
-line[i] = 0;
-last_merged = j - 1;
-}
-else if (j != i)
-{
-line[j] = line[i];
-line[i] = 0;
-j++;
-}
-else
-j++;
-}
-}
-}
-else if (direction == SLIDE_RIGHT)
-{
-last_merged = size - 1;
-for (i = size, j = size; i-- > 0;)
-{
-if (line[i] != 0)
-{
-if (j < size && line[j] == line[i] && last_merged != j)
-{
-line[j] *= 2;
-line[i] = 0;
-last_merged = j;
-}
-else if (j - 1 != i)
-{
-line[j - 1] = line[i];
-line[i] = 0;
-j--;
-}
-else
-j--;
-}
-}
-}
-return (1);
+    if (direction == SLIDE_LEFT)
+    {
+        /* Step 1: Shift non-zero elements to the left */
+        pos = 0;
+        for (i = 0; i < size; i++)
+            if (line[i] != 0)
+                line[pos++] = line[i];
+
+        /* Fill remaining positions with zero */
+        for (; pos < size; pos++)
+            line[pos] = 0;
+
+        /* Step 2: Merge adjacent equal elements */
+        for (i = 0; i < size - 1; i++)
+        {
+            if (line[i] != 0 && line[i] == line[i + 1])
+            {
+                line[i] *= 2;
+                line[i + 1] = 0;
+            }
+        }
+
+        /* Step 3: Shift non-zero elements again */
+        pos = 0;
+        for (i = 0; i < size; i++)
+            if (line[i] != 0)
+                line[pos++] = line[i];
+
+        for (; pos < size; pos++)
+            line[pos] = 0;
+    }
+    else /* SLIDE_RIGHT */
+    {
+        /* Step 1: Shift non-zero elements to the right */
+        pos = size - 1;
+        for (i = size; i > 0; i--)
+            if (line[i - 1] != 0)
+                line[pos--] = line[i - 1];
+
+        for (; (int)pos >= 0; pos--)
+            line[pos] = 0;
+
+        /* Step 2: Merge adjacent equal elements */
+        for (i = size - 1; i > 0; i--)
+        {
+            if (line[i] != 0 && line[i] == line[i - 1])
+            {
+                line[i] *= 2;
+                line[i - 1] = 0;
+            }
+        }
+
+        /* Step 3: Shift non-zero elements again */
+        pos = size - 1;
+        for (i = size; i > 0; i--)
+            if (line[i - 1] != 0)
+                line[pos--] = line[i - 1];
+
+        for (; (int)pos >= 0; pos--)
+            line[pos] = 0;
+    }
+    return (1);
 }
