@@ -5,10 +5,10 @@
 #define SPACE 10
 
 /**
- * print_tree - Recursive function to print tree
- * @tree: Pointer to node
- * @space: Space from margin
- */
+* print_tree - Recursive function to print tree
+* @tree: Pointer to node
+* @space: Space from margin
+*/
 void print_tree(const binary_tree_t *tree, int space)
 {
 int i;
@@ -29,9 +29,9 @@ print_tree(tree->left, space);
 }
 
 /**
- * binary_tree_print - Wrapper to print_tree
- * @tree: Pointer to tree
- */
+* binary_tree_print - Wrapper to print_tree
+* @tree: Pointer to tree
+*/
 void binary_tree_print(const binary_tree_t *tree)
 {
 print_tree(tree, 0);
