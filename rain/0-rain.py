@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-
+"""
+This module contains the rain function, which calculates how much water
+is retained after it rains given a list of wall heights.
+"""
 def rain(walls):
     """
     Calculate the amount of water that can be trapped after raining.
