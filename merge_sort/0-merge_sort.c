@@ -25,6 +25,13 @@ merge_sort_recursive(array, buffer, 0, size);
 free(buffer);
 }
 
+/**
+ * merge_sort_recursive - Recursively splits and sorts sub-arrays
+ * @array: The main array being sorted
+ * @buffer: Temporary array used for merging
+ * @left: Starting index of the sub-array
+ * @right: Ending index (non-inclusive) of the sub-array
+ */
 void merge_sort_recursive(int *array, int *buffer, size_t left, size_t right)
 {
 size_t mid;
@@ -38,6 +45,14 @@ merge_sort_recursive(array, buffer, mid, right);
 merge(array, buffer, left, mid, right);
 }
 
+/**
+ * merge - Merges two sorted sub-arrays into one
+ * @array: The original array containing the sub-arrays
+ * @buffer: Temporary array used for merging
+ * @left: Starting index of the first sub-array
+ * @mid: Ending index of the first sub-array / starting of the second
+ * @right: Ending index (non-inclusive) of the second sub-array
+ */
 void merge(int *array, int *buffer, size_t left, size_t mid, size_t right)
 {
 size_t i = left, j = mid, k = left;
