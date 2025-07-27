@@ -15,8 +15,9 @@ return (1);
 
 if (*s2 == '*')
 {
-if (wildcmp(s1, s2 + 1))
-if (*s1 != '\0' && wildcmp(s1 + 1, s2))
+if (wildcmp(s1, s2 + 1))  // try treating '*' as matching 0 characters
+return (1);
+if (*s1 != '\0' && wildcmp(s1 + 1, s2))  // try matching '*' with one or more characters
 return (1);
 }
 else if (*s1 == *s2)
